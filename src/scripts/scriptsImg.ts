@@ -1,9 +1,9 @@
-import Bg from "../../public/imgs/bg.png"
-import Logo from "../../public/imgs/logo.png"
-import Modelo from "../../public/imgs/image-modelo.png"
+import Bg from "../imgs/bg.png"
+import Logo from "../imgs/logo.png"
+import Modelo from "../imgs/image-modelo.png"
 
 export const Images = {
     bg: Bg,
     logo: Logo,
     modelo: Modelo
-}
+}   
