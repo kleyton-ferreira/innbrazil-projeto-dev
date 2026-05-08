@@ -4,8 +4,9 @@ import HeaderItens from '../header-itens/header-itens-components'
 // STYLES
 import { HeaderContainer, HeaderContent } from './header-style'
 
-// SCRIPT and IMAGES
+// SCRIPT and IMAGES and TEXT
 import { Images } from '../../scripts/scriptsImg'
+import { TextsHeader } from '../../scripts/scriptsText'
 
 const Header = () => {
   return (
@@ -14,8 +15,8 @@ const Header = () => {
         <HeaderContent>
           <HeaderItens
             images={Images.logo}
-            title='PRIMEIRO LOTE LIBERADO'
-            subTitle='POR TEMPO LIMITADO'
+            title={TextsHeader.title}
+            subTitle={TextsHeader.subTitle}
           />
         </HeaderContent>
       </HeaderContainer>

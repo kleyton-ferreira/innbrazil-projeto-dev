@@ -1,10 +1,13 @@
 import styled, { css, keyframes } from "styled-components";
 import Colors from "../../theme/theme.colors";
 
-type ButtonVariant = "primary" | "secondary" | "wats" | "cards";
+type ButtonVariant = "primary" | "secondary" | "wats" | "cards" | "btnBanner";
+
+type TextVariant = "textxl" | "text2x1"
 
 interface ButtonProps {
   variant?: ButtonVariant;
+  variantText?: TextVariant
 }
 
 const sweep = keyframes`
@@ -25,7 +28,6 @@ export const buttonVariants = {
     overflow: hidden;
     z-index: 1;
   
-
     &::after {
       content: '';
       position: absolute;
@@ -48,6 +50,7 @@ export const buttonVariants = {
     background: ${Colors.text.pink};
     color: ${Colors.text.white};
     transition: all 0.3s ease;
+    
 
     &:hover {
       background: ${Colors.text.white};
@@ -73,7 +76,29 @@ export const buttonVariants = {
       /* background: #15803d; */
     }
   `,
+
+  btnBanner: css`
+   background: ${Colors.text.pink};
+   color: ${Colors.text.white};
+   padding: 6px 30px;
+
+    &:hover {
+      /* background: #15803d; */
+    }
+  `,
+
+
 };
+
+export const buttonFontsVariants = {
+  textxl: css`
+   font-size: 20px;
+  `,
+
+  text2x1: css`
+   font-size: 20px;
+  `,
+}
 
 export const ButtonNav = styled.a<ButtonProps>`
   position: relative;
@@ -96,4 +121,6 @@ export const ButtonNav = styled.a<ButtonProps>`
   }
 
    ${({ variant = "primary" }) => buttonVariants[variant as ButtonVariant]}
+
+   ${({ variantText = "textxl" }) => buttonFontsVariants[variantText as TextVariant]}
 `;
