@@ -5,7 +5,7 @@ import CustomInput from '../../components/custom-input/custom-input-components'
 import InputErrorMessage from '../../components/input-error-message/input-error-message'
 
 // SCRIPT and TEXT
-import { TextInputs } from '../../scripts/scriptsText'
+import { TextInputsLogin } from '../../scripts/scriptsText'
 
 import {
   LoginContainer,
@@ -51,20 +51,20 @@ const LoginPage = () => {
           <LoginContainer>
             <form onSubmit={handleSubmit(handleSubmitPress)}>
               <LoginContent>
-                <LoginHeadLine>{TextInputs.title}</LoginHeadLine>
+                <LoginHeadLine>{TextInputsLogin.title}</LoginHeadLine>
 
                 <CustomButton type='button' startIcon={<FaGoogle size={25} />}>
-                  {TextInputs.buttonGoogle}
+                  {TextInputsLogin.buttonGoogle}
                 </CustomButton>
 
-                <LoginSubtitle>{TextInputs.subTitle}</LoginSubtitle>
+                <LoginSubtitle>{TextInputsLogin.subTitle}</LoginSubtitle>
 
                 {/* INPUT - 1 */}
                 <LoginInputContainer>
-                  <p>{TextInputs.labelEmail}</p>
+                  <p>{TextInputsLogin.labelEmail}</p>
                   <CustomInput
                     hasError={!!errors?.email}
-                    placeholder={TextInputs.placeholderEmail}
+                    placeholder={TextInputsLogin.placeholderEmail}
                     {...register('email', {
                       required: true,
                       validate: (value) => {
@@ -88,11 +88,11 @@ const LoginPage = () => {
 
                 {/* INPUT - 2 */}
                 <LoginInputContainer>
-                  <p>{TextInputs.labelPassword}</p>
+                  <p>{TextInputsLogin.labelPassword}</p>
                   <CustomInput
                     hasError={!!errors?.password}
                     type='password'
-                    placeholder={TextInputs.placeholderPassword}
+                    placeholder={TextInputsLogin.placeholderPassword}
                     {...register('password', { required: true })}
                   />
                   {errors?.password?.type === 'required' && (
@@ -103,7 +103,7 @@ const LoginPage = () => {
                 </LoginInputContainer>
 
                 <CustomButton type='submit' startIcon={<MdLogin size={20} />}>
-                  {TextInputs.customButton}
+                  {TextInputsLogin.customButton}
                 </CustomButton>
               </LoginContent>
             </form>
