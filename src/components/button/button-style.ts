@@ -80,7 +80,7 @@ export const buttonVariants = {
   btnBanner: css`
    background: ${Colors.text.pink};
    color: ${Colors.text.white};
-   padding: 6px 30px;
+   padding: 6px 40px;
 
     &:hover {
       /* background: #15803d; */
@@ -92,15 +92,25 @@ export const buttonVariants = {
 
 export const buttonFontsVariants = {
   textxl: css`
-   font-size: 20px;
+   font-size: 18px;
   `,
 
   text2x1: css`
-   font-size: 20px;
+   font-size: 24px;
   `,
 }
 
-export const ButtonNav = styled.a<ButtonProps>`
+export const ButtonIcon = styled.div`
+ span {
+  display: flex;
+  align-items: center;
+  position: relative;
+  top: -1px;
+  left: -6px;
+ }
+`
+
+export const ButtonNav = styled.div<ButtonProps>`
   position: relative;
   z-index: 10003;
   padding: 12px 40px;
