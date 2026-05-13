@@ -1,10 +1,10 @@
 // TEXTS and HEADER!
 export const TextsHeader = {
-    title: 'PRIMEIRO LOTE LIBERADO',
-    subTitle: 'POR TEMPO LIMITADO',
+    titleOne: 'PRIMEIRO LOTE LIBERADO',
+    titleTwo: 'POR TEMPO LIMITADO',
     button: 'GARANTIR INGRESSO',
-    login: "login",
-    account: "Criar conta"
+    loginButton: "login",
+    accountButton: "Criar conta"
 }
 
 // TEXTS and BANNER!
@@ -38,7 +38,7 @@ export const TextCards = {
 // TEXTS and BANNER!
 export const TextInputs = {
     title: 'Entre com sua conta',
-    button: "Entrar com o Google",
+    buttonGoogle: "Entrar com o Google",
     customButton: "Entrar",
     subTitle: 'ou entre com se E-mail',
     placeholderEmail: "Digite seu e-mail",
