@@ -14,7 +14,8 @@ import {
   LoginInputContainer,
   LoginHeadLine,
   LoginContainerFlex,
-  LoginBg
+  LoginBg,
+  LoginInputButton
 } from './login-style'
 
 // ICONS
@@ -101,10 +102,11 @@ const LoginPage = () => {
                     </InputErrorMessage>
                   )}
                 </LoginInputContainer>
-
-                <CustomButton type='submit' startIcon={<MdLogin size={20} />}>
-                  {TextInputsLogin.customButton}
-                </CustomButton>
+                <LoginInputButton>
+                  <CustomButton type='submit' startIcon={<MdLogin size={20} />}>
+                    {TextInputsLogin.customButton}
+                  </CustomButton>
+                </LoginInputButton>
               </LoginContent>
             </form>
           </LoginContainer>

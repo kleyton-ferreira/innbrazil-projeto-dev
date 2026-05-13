@@ -37,11 +37,9 @@ rgb(247, 128, 193),
 
 export const LoginContainer = styled.div`
   position: relative;
-  top: -60px;
-  z-index: 2;
+  top: -40px;
   width: 580px;
-  height: 100%;
-  padding: 60px;
+  padding: 40px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -97,7 +95,8 @@ export const LoginSubtitle = styled.p`
 
 export const LoginInputContainer = styled.div`
   width: 100%;
-  margin-bottom: 20px;
+  height: 88px;
+  margin-bottom: 14px;
 
   p {
     color: ${Colors.text.gray};
@@ -109,4 +108,9 @@ export const LoginInputContainer = styled.div`
     font-weight: 600;
     margin-bottom: 5px;
   }
+`
+
+export const LoginInputButton = styled.div`
+ margin-top: 12px;
+ width: 100%;
 `

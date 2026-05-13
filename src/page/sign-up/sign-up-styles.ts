@@ -8,12 +8,13 @@ export const SignUpContainerFlex = styled.div`
 `
 
 export const SignUpBg = styled.div`
- position: relative;
+ position: fixed;
+ top: 0;
  z-index: 1;
  width: 100%;
- height: 100vh;
- 
-background: linear-gradient(
+ height: 100%;
+
+ background: linear-gradient(
     135deg,
     #fce4f3,
     #f9b8dc,
@@ -36,17 +37,12 @@ rgb(247, 128, 193),
 
 export const SignUpContainer = styled.div`
   position: relative;
-  top: -200px;
-  z-index: 2;
+  top: -40px;
   width: 580px;
-  height: 100%;
-  padding: 60px;
-  margin: 0 auto;
+  padding: 40px;
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding-top: 40px;
-  transform:  translate(0%, 60%);
+  transform:  translateY(30%);
   background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(3px);
   border-radius: 20px;
@@ -60,7 +56,7 @@ export const SignUpContainer = styled.div`
   0 16px 40px rgba(250, 128, 114, 0.06);
 
   &:hover {
-  transform: translate(0%, 60%) translateY(-8px);
+  transform: translate(0%, 30%) translateY(-8px);
     box-shadow:
       0 4px 20px rgba(228, 124, 176, 0.18),
       0 12px 40px rgba(230, 0, 126, 0.14),
@@ -85,20 +81,10 @@ export const SignUpContent = styled.div`
   width: 450px;
 `
 
-export const SignUpSubtitle = styled.p`
-  color: ${Colors.text.gray};
-  padding-bottom: 20px;
- 
-  width: 100%;
-  margin-top: 20px;
-  text-align: center;
-  font-weight: 500;
-  margin-bottom: 20px;
-`
-
 export const SignUpInputContainer = styled.div`
   width: 100%;
-  margin-bottom: 20px;
+  height: 88px;
+  margin-bottom: 14px;
 
   p {
     color: ${Colors.text.gray};
@@ -108,6 +94,11 @@ export const SignUpInputContainer = styled.div`
 
   & p:nth-child(1) {
     font-weight: 600;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
   }
+`
+
+export const SignUpInputButton = styled.div`
+ margin-top: 12px;
+ width: 100%;
 `

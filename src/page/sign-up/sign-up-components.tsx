@@ -22,7 +22,8 @@ import {
   SignUpContainer,
   SignUpContent,
   SignUpHeadLine,
-  SignUpInputContainer
+  SignUpInputContainer,
+  SignUpInputButton
 } from './sign-up-styles'
 
 interface SignUpPageProps {
@@ -160,9 +161,11 @@ const SignUpPage = () => {
                 </SignUpInputContainer>
 
                 {/* INPUT - BUTTON */}
-                <CustomButton type='submit' startIcon={<MdLogin size={20} />}>
-                  Crie sua conta
-                </CustomButton>
+                <SignUpInputButton>
+                  <CustomButton type='submit' startIcon={<MdLogin size={20} />}>
+                    Crie sua conta
+                  </CustomButton>
+                </SignUpInputButton>
               </SignUpContent>
             </form>
           </SignUpContainer>
