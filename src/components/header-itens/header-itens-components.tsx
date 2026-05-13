@@ -33,6 +33,10 @@ const HeaderItens: FunctionComponent<HeaderItensProps> = ({
     navigate('/login')
   }
 
+  const handleSignUpPage = () => {
+    navigate('/signup')
+  }
+
   return (
     <>
       <HeaderItensContainer>
@@ -52,7 +56,7 @@ const HeaderItens: FunctionComponent<HeaderItensProps> = ({
         </Link>
         <HeaderItensAccount>
           <p onClick={handleLoginPage}> {login} </p>
-          <p> {account} </p>
+          <p onClick={handleSignUpPage}> {account} </p>
         </HeaderItensAccount>
       </HeaderItensContainer>
     </>

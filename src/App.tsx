@@ -1,11 +1,10 @@
 import { FunctionComponent } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-import Header from './components/header/header-components'
-
 // PAGES
 import HomePage from './page/home/home-components'
 import LoginPage from './page/login/login-page'
+import SignUpPage from './page/sign-up/sign-up-components'
 
 const App: FunctionComponent = () => {
   return (
@@ -14,6 +13,8 @@ const App: FunctionComponent = () => {
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path='/login' element={<LoginPage />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/signup' element={<SignUpPage />} />
         </Routes>
       </BrowserRouter>
     </>
