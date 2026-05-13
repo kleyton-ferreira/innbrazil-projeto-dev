@@ -6,6 +6,7 @@ const Colors = {
         pink: "#e6007e",
         pinkLight: "#e47cb0",
         buttonwaths: "#000000",
+
     },
     background: {
         backgroundCardsYellow: "#fac208",
@@ -24,6 +25,11 @@ const Colors = {
         backgroundCardsBlackBody: "#000000",
         backgroundCardsBlueTop: "#69b1cb",
         backgroundCardsBlueBody: "#3e4dba"
+    },
+
+    input: {
+        error: "tomato",
+        placeholder: "#cccc"
     }
 }
 
