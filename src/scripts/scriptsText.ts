@@ -50,7 +50,7 @@ export const TextInputsLogin = {
 export const TextInputsSignUp = {
     title: 'Crie a sua conta',
     placeholderName: "Digite seu nome",
-    placeholderSobreName: "Digite seu sobrenome",
+    placeholderLastName: "Digite seu sobrenome",
     placeholderEmail: "Digite seu e-mail",
     placeholderPassword: "Digite seu senha",
     placeholderPasswordConfirmation: "Confirme seu senha",
