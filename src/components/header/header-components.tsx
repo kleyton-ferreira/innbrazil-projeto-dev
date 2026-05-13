@@ -17,6 +17,8 @@ const Header = () => {
             images={Images.logo}
             title={TextsHeader.title}
             subTitle={TextsHeader.subTitle}
+            login={TextsHeader.login}
+            account={TextsHeader.account}
           />
         </HeaderContent>
       </HeaderContainer>
