@@ -36,7 +36,7 @@ export const TextCards = {
 }
 
 // TEXTS and BANNER!
-export const TextInputs = {
+export const TextInputsLogin = {
     title: 'Entre com sua conta',
     buttonGoogle: "Entrar com o Google",
     customButton: "Entrar",
@@ -45,7 +45,16 @@ export const TextInputs = {
     placeholderPassword: "Digite seu senha",
     labelEmail: "E-mail",
     labelPassword: "Senha"
+}
 
+export const TextInputsSignUp = {
+    title: 'Crie a sua conta',
+    placeholderName: "Digite seu nome",
+    placeholderSobreName: "Digite seu sobrenome",
+    placeholderEmail: "Digite seu e-mail",
+    placeholderPassword: "Digite seu senha",
+    placeholderPasswordConfirmation: "Confirme seu senha",
+    customButtonSignup: "Criar sua conta",
 }
 
 
