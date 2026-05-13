@@ -54,7 +54,7 @@ const LoginPage = () => {
                 <LoginHeadLine>{TextInputs.title}</LoginHeadLine>
 
                 <CustomButton type='button' startIcon={<FaGoogle size={25} />}>
-                  {TextInputs.button}
+                  {TextInputs.buttonGoogle}
                 </CustomButton>
 
                 <LoginSubtitle>{TextInputs.subTitle}</LoginSubtitle>
