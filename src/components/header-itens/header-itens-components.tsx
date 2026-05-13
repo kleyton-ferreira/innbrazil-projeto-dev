@@ -1,11 +1,12 @@
 import { FunctionComponent } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 // STYLES
 import {
   HeaderItensContainer,
   HeaderItensImg,
-  HeaderItensTitle
+  HeaderItensTitle,
+  HeaderItensAccount
 } from './header-itens-styles'
 
 import Countdown from '../coutdown/ countdown.components'
@@ -18,13 +19,23 @@ interface HeaderItensProps {
   title: string
   subTitle: string
   images: any
+  login: string
+  account: string
 }
 
 const HeaderItens: FunctionComponent<HeaderItensProps> = ({
   title,
   subTitle,
-  images
+  images,
+  login,
+  account
 }) => {
+  const navigate = useNavigate()
+
+  const handleLoginPage = () => {
+    navigate('/login')
+  }
+
   return (
     <>
       <HeaderItensContainer>
@@ -40,8 +51,12 @@ const HeaderItens: FunctionComponent<HeaderItensProps> = ({
           <Countdown />
         </HeaderItensTitle>
         <Link to=''>
-          <Button message={TextsHeader.button} />
+          <Button message={TextsHeader.button} icon='' />
         </Link>
+        <HeaderItensAccount>
+          <p onClick={handleLoginPage}> {login} </p>
+          <p> {account} </p>
+        </HeaderItensAccount>
       </HeaderItensContainer>
     </>
   )

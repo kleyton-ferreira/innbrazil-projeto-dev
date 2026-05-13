@@ -14,9 +14,9 @@ export const HeaderItensImg = styled.div`
     }
 `
 export const HeaderItensTitle = styled.div`
-  text-align: center;
   display: flex;
   align-items: center;
+  text-align: center;
   
   p {
    font-size: 22px;
@@ -27,6 +27,29 @@ export const HeaderItensTitle = styled.div`
   span {
     display: block;
     font-weight: bold;
+  }
+`
+
+export const HeaderItensAccount = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  
+  p {
+   font-size: 18px;
+   font-weight: 300;
+   color: ${Colors.text.white};
+   cursor: pointer;
+   border: 1px solid ${Colors.text.white};
+   padding: 6px 30px;
+   border-radius: 30px;
+   transition: all 0.3s ease;
+  }
+
+  p:hover {
+    background-color: ${Colors.background.backgroundCardsYellow};
+    color: ${Colors.text.pink};
+    font-weight: 400;
   }
 
 `
