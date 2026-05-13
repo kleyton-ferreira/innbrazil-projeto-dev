@@ -15,10 +15,10 @@ const Header = () => {
         <HeaderContent>
           <HeaderItens
             images={Images.logo}
-            title={TextsHeader.title}
-            subTitle={TextsHeader.subTitle}
-            login={TextsHeader.login}
-            account={TextsHeader.account}
+            title={TextsHeader.titleOne}
+            subTitle={TextsHeader.titleTwo}
+            login={TextsHeader.loginButton}
+            account={TextsHeader.accountButton}
           />
         </HeaderContent>
       </HeaderContainer>

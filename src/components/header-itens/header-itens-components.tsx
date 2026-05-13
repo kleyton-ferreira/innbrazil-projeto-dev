@@ -12,9 +12,6 @@ import {
 import Countdown from '../coutdown/ countdown.components'
 import Button from '../button/button-components'
 
-// SCRIPT and TEXT
-import { TextsHeader } from '../../scripts/scriptsText'
-
 interface HeaderItensProps {
   title: string
   subTitle: string
@@ -51,7 +48,7 @@ const HeaderItens: FunctionComponent<HeaderItensProps> = ({
           <Countdown />
         </HeaderItensTitle>
         <Link to=''>
-          <Button message={TextsHeader.button} icon='' />
+          <Button icon='' message='GARANTIR INGRESSO' />
         </Link>
         <HeaderItensAccount>
           <p onClick={handleLoginPage}> {login} </p>
