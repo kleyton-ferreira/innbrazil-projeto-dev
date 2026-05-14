@@ -102,3 +102,28 @@ export const SignUpInputButton = styled.div`
  margin-top: 12px;
  width: 100%;
 `
+
+export const SignUpButton = styled.div`
+ margin-top: 8px;
+`
+
+interface TextAreaProps {
+  hasError?: boolean
+}
+
+export const SignUpTextArea = styled.textarea<TextAreaProps>`
+  width: 100%;
+  min-height: 120px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  resize: vertical;
+  font-size: 16px;
+  font-family: inherit;
+  outline: none;
+  transition: border 0.3s ease;
+  border: 1px solid ${({ hasError }) => (hasError ? 'red' : '#ccc')};
+
+  &:focus {
+    border-color: ${({ hasError }) => (hasError ? 'red' : Colors.text.pink)};
+  }
+`

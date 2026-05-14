@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 
 // COMPONENTS
 import Header from '../../components/header/header-components'
@@ -25,16 +26,24 @@ import {
   SignUpInputContainer,
   SignUpInputButton
 } from './sign-up-styles'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth, db } from '../../config/firebase.config'
+import { addDoc, collection } from 'firebase/firestore'
 
 interface SignUpPageProps {
-  name: string
+  firstName: string
   lastName: string
   email: string
   password: string
   passwordConfirmation: string
+  message: string
 }
 
+const WHATSAPP_NUMBER = '5582988322654'
+
 const SignUpPage = () => {
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -44,11 +53,40 @@ const SignUpPage = () => {
 
   const watchPassword = watch('password')
 
-  const handleSubmitPress = (data: SignUpPageProps) => {
-    console.log({ data })
-  }
+  const handleSubmitPress = async (data: SignUpPageProps) => {
+    try {
+      const userCredentials = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      )
 
-  console.log({ errors })
+      await addDoc(collection(db, 'users'), {
+        id: userCredentials.user.uid,
+        email: userCredentials.user.email,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        message: data.message
+      })
+
+      const whatsappMessage = encodeURIComponent(
+        `Olá! Me cadastrei no site.\n\n` +
+          `👤 Nome: ${data.firstName} ${data.lastName}\n` +
+          `📧 Email: ${data.email}\n\n` +
+          `💬 Mensagem: ${data.message}\n\n` +
+          `Gostaria de comfirma meu horário!`
+      )
+
+      window.open(
+        `https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMessage}`,
+        '_blank'
+      )
+
+      navigate('/')
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <>
@@ -64,12 +102,11 @@ const SignUpPage = () => {
                 <SignUpInputContainer>
                   <p>Nome</p>
                   <CustomInput
-                    hasError={!!errors?.name}
+                    hasError={!!errors?.firstName}
                     placeholder={TextInputsSignUp.placeholderName}
-                    {...register('name', { required: true })}
+                    {...register('firstName', { required: true })}
                   />
-
-                  {errors?.name?.type === 'required' && (
+                  {errors?.firstName?.type === 'required' && (
                     <InputErrorMessage>O nome e obrigatório.</InputErrorMessage>
                   )}
                 </SignUpInputContainer>
@@ -97,9 +134,7 @@ const SignUpPage = () => {
                     placeholder={TextInputsSignUp.placeholderEmail}
                     {...register('email', {
                       required: true,
-                      validate: (value) => {
-                        return validator.isEmail(value)
-                      }
+                      validate: (value) => validator.isEmail(value)
                     })}
                   />
                   {errors?.email?.type === 'required' && (
@@ -107,7 +142,6 @@ const SignUpPage = () => {
                       O email e obrigatório.
                     </InputErrorMessage>
                   )}
-
                   {errors?.email?.type === 'validate' && (
                     <InputErrorMessage>
                       Por favor, insira um email válido.
@@ -142,9 +176,7 @@ const SignUpPage = () => {
                     }
                     {...register('passwordConfirmation', {
                       required: true,
-                      validate: (value) => {
-                        return value === watchPassword
-                      }
+                      validate: (value) => value === watchPassword
                     })}
                   />
                   {errors?.passwordConfirmation?.type === 'required' && (
@@ -152,7 +184,6 @@ const SignUpPage = () => {
                       A confirmação da senha é obrigatória.
                     </InputErrorMessage>
                   )}
-
                   {errors?.passwordConfirmation?.type === 'validate' && (
                     <InputErrorMessage>
                       As confirmação de senha precisa ser igual.
