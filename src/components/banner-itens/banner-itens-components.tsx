@@ -55,16 +55,14 @@ const BannerItens: FunctionComponent = () => {
               <span> {TextsBanner.subDescription} </span>
             </h2>
           </BannerItensTitle>
-          <Link to='/'>
-            <BannerItensButtonFooter>
-              <Button
-                icon=''
-                message={TextsBanner.button}
-                variant='secondary'
-                variantText='text2x1'
-              />
-            </BannerItensButtonFooter>
-          </Link>
+
+          <BannerItensButtonFooter>
+            <Button
+              message={TextsBanner.button}
+              variant='secondary'
+              variantText='text2x1'
+            />
+          </BannerItensButtonFooter>
         </BannerItensContent>
       </BannerItensContainer>
     </>

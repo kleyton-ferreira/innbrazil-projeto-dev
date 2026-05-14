@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 // STYLES
 import {
@@ -40,20 +40,21 @@ const HeaderItens: FunctionComponent<HeaderItensProps> = ({
   return (
     <>
       <HeaderItensContainer>
-        <Link to='/'>
-          <HeaderItensImg>
-            <img src={images} alt='logo' />
-          </HeaderItensImg>
-        </Link>
+        <HeaderItensImg to='/'>
+          <img src={images} alt='logo' />
+        </HeaderItensImg>
+
         <HeaderItensTitle>
           <p>
             {title} <span> {subTitle} </span>
           </p>
           <Countdown />
         </HeaderItensTitle>
-        <Link to=''>
-          <Button icon='' message='GARANTIR INGRESSO' />
-        </Link>
+        <Button
+          to='https://www.globo.com/'
+          target='_blank'
+          message='GARANTIR INGRESSO'
+        />
         <HeaderItensAccount>
           <p onClick={handleLoginPage}> {login} </p>
           <p onClick={handleSignUpPage}> {account} </p>

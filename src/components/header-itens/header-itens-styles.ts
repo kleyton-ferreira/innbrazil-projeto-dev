@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import Colors from "../../theme/theme.colors";
 
 export const HeaderItensContainer = styled.div`
@@ -7,7 +8,7 @@ export const HeaderItensContainer = styled.div`
  align-items: center;
 `
 
-export const HeaderItensImg = styled.div`
+export const HeaderItensImg = styled(Link)`
     img {
         width: 234px;
         height: 85px;
