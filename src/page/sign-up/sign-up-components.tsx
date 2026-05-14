@@ -26,7 +26,11 @@ import {
   SignUpInputContainer,
   SignUpInputButton
 } from './sign-up-styles'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import {
+  AuthError,
+  AuthErrorCodes,
+  createUserWithEmailAndPassword
+} from 'firebase/auth'
 import { auth, db } from '../../config/firebase.config'
 import { addDoc, collection } from 'firebase/firestore'
 
@@ -36,10 +40,9 @@ interface SignUpPageProps {
   email: string
   password: string
   passwordConfirmation: string
-  message: string
 }
 
-const WHATSAPP_NUMBER = '5582988322654'
+const WHATSAPP_NUMBER = '5582987940126'
 
 const SignUpPage = () => {
   const navigate = useNavigate()
@@ -48,7 +51,8 @@ const SignUpPage = () => {
     register,
     handleSubmit,
     watch,
-    formState: { errors }
+    formState: { errors },
+    setError
   } = useForm<SignUpPageProps>()
 
   const watchPassword = watch('password')
@@ -65,26 +69,24 @@ const SignUpPage = () => {
         id: userCredentials.user.uid,
         email: userCredentials.user.email,
         firstName: data.firstName,
-        lastName: data.lastName,
-        message: data.message
+        lastName: data.lastName
       })
 
-      const whatsappMessage = encodeURIComponent(
+      const message = encodeURIComponent(
         `Olá! Me cadastrei no site.\n\n` +
           `👤 Nome: ${data.firstName} ${data.lastName}\n` +
           `📧 Email: ${data.email}\n\n` +
-          `💬 Mensagem: ${data.message}\n\n` +
-          `Gostaria de comfirma meu horário!`
+          `Gostaria de saber mais informações! ( Sobre as unhas em gel! )`
       )
 
-      window.open(
-        `https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMessage}`,
-        '_blank'
-      )
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank')
 
-      navigate('/')
+      // navigate('/')
     } catch (error) {
-      console.log(error)
+      const _error = error as AuthError
+      if (_error.code === AuthErrorCodes.EMAIL_EXISTS) {
+        return setError('email', { type: 'already-in-use' })
+      }
     }
   }
 
@@ -142,6 +144,11 @@ const SignUpPage = () => {
                       O email e obrigatório.
                     </InputErrorMessage>
                   )}
+
+                  {errors?.email?.type === 'already-in-use' && (
+                    <InputErrorMessage>Esse email já existe.</InputErrorMessage>
+                  )}
+
                   {errors?.email?.type === 'validate' && (
                     <InputErrorMessage>
                       Por favor, insira um email válido.
@@ -156,11 +163,17 @@ const SignUpPage = () => {
                     hasError={!!errors?.password}
                     type='password'
                     placeholder={TextInputsSignUp.placeholderPassword}
-                    {...register('password', { required: true })}
+                    {...register('password', { required: true, minLength: 6 })}
                   />
                   {errors?.password?.type === 'required' && (
                     <InputErrorMessage>
                       A senha é obrigatória.
+                    </InputErrorMessage>
+                  )}
+
+                  {errors?.password?.type === 'minLength' && (
+                    <InputErrorMessage>
+                      A senha deve conter 6 caracteres.
                     </InputErrorMessage>
                   )}
                 </SignUpInputContainer>
@@ -176,6 +189,7 @@ const SignUpPage = () => {
                     }
                     {...register('passwordConfirmation', {
                       required: true,
+                      minLength: 6,
                       validate: (value) => value === watchPassword
                     })}
                   />
