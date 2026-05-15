@@ -1,5 +1,7 @@
 import { FunctionComponent } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { signOut } from 'firebase/auth'
+import { auth } from '../../config/firebase.config'
 
 // STYLES
 import {
@@ -9,6 +11,7 @@ import {
   HeaderItensAccount
 } from './header-itens-styles'
 
+// COMPONENTS
 import Countdown from '../coutdown/ countdown.components'
 import Button from '../button/button-components'
 
@@ -16,8 +19,9 @@ interface HeaderItensProps {
   title: string
   subTitle: string
   images: any
-  login: string
-  account: string
+  login?: string
+  account?: string
+  signOutOut?: string
 }
 
 const HeaderItens: FunctionComponent<HeaderItensProps> = ({
@@ -25,7 +29,8 @@ const HeaderItens: FunctionComponent<HeaderItensProps> = ({
   subTitle,
   images,
   login,
-  account
+  account,
+  signOutOut
 }) => {
   const navigate = useNavigate()
 
@@ -56,8 +61,9 @@ const HeaderItens: FunctionComponent<HeaderItensProps> = ({
           message='GARANTIR INGRESSO'
         />
         <HeaderItensAccount>
-          <p onClick={handleLoginPage}> {login} </p>
-          <p onClick={handleSignUpPage}> {account} </p>
+          <button onClick={handleLoginPage}> {login} </button>
+          <button onClick={handleSignUpPage}> {account} </button>
+          <button onClick={() => signOut(auth)}> {signOutOut} </button>
         </HeaderItensAccount>
       </HeaderItensContainer>
     </>

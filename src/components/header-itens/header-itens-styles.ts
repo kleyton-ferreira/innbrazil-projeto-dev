@@ -36,7 +36,7 @@ export const HeaderItensAccount = styled.div`
   align-items: center;
   gap: 10px;
   
-  p {
+  button {
    font-size: 18px;
    font-weight: 300;
    color: ${Colors.text.white};
@@ -45,9 +45,10 @@ export const HeaderItensAccount = styled.div`
    padding: 6px 30px;
    border-radius: 30px;
    transition: all 0.3s ease;
+   background: transparent;
   }
 
-  p:hover {
+  button:hover {
     background-color: ${Colors.background.backgroundCardsYellow};
     color: ${Colors.text.pink};
     font-weight: 400;

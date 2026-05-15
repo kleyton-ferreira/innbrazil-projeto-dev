@@ -4,7 +4,8 @@ export const TextsHeader = {
     titleTwo: 'POR TEMPO LIMITADO',
     button: 'GARANTIR INGRESSO',
     loginButton: "login",
-    accountButton: "Criar conta"
+    accountButton: "Criar conta",
+    signOutButton: "Sair"
 }
 
 // TEXTS and BANNER!
