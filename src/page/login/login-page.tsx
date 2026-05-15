@@ -23,8 +23,14 @@ import { FaGoogle } from 'react-icons/fa'
 import { MdLogin } from 'react-icons/md'
 import { useForm } from 'react-hook-form'
 
-// UTILITZ
+// UTILITY
 import validator from 'validator'
+import {
+  AuthError,
+  AuthErrorCodes,
+  signInWithEmailAndPassword
+} from 'firebase/auth'
+import { auth } from '../../config/firebase.config'
 
 interface LoginPageForm {
   email: string
@@ -35,14 +41,46 @@ const LoginPage = () => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors }
   } = useForm<LoginPageForm>()
 
-  const handleSubmitPress = (data: LoginPageForm) => {
-    console.log({ data })
+  const sendWhatsAppConfirmation = (email: string) => {
+    const phone = '5582988322654'
+    const message = encodeURIComponent(
+      `Olá! Login realizado com sucesso.\nConfirmação de agendamento para o e-mail: ${email}`
+    )
+    window.open(`https://wa.me/${phone}?text=${message}`, '_blank')
   }
 
-  console.log({ errors })
+  const handleSubmitPress = async (data: LoginPageForm) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      )
+
+      console.log({ userCredential })
+
+      sendWhatsAppConfirmation(data.email)
+    } catch (error) {
+      const _error = error as AuthError
+
+      if (_error.code === AuthErrorCodes.INVALID_EMAIL) {
+        return setError('email', { type: 'invalid-email' })
+      }
+
+      const isInvalidCredential =
+        _error.code === AuthErrorCodes.INVALID_IDP_RESPONSE ||
+        _error.code === AuthErrorCodes.INVALID_PASSWORD ||
+        _error.code === 'auth/invalid-login-credentials'
+
+      if (isInvalidCredential) {
+        return setError('password', { type: 'invalid-credentials' })
+      }
+    }
+  }
 
   return (
     <>
@@ -68,15 +106,13 @@ const LoginPage = () => {
                     placeholder={TextInputsLogin.placeholderEmail}
                     {...register('email', {
                       required: true,
-                      validate: (value) => {
-                        return validator.isEmail(value)
-                      }
+                      validate: (value) => validator.isEmail(value)
                     })}
                   />
 
                   {errors?.email?.type === 'required' && (
                     <InputErrorMessage>
-                      O email e obrigatório.
+                      O email é obrigatório.
                     </InputErrorMessage>
                   )}
 
@@ -96,12 +132,20 @@ const LoginPage = () => {
                     placeholder={TextInputsLogin.placeholderPassword}
                     {...register('password', { required: true })}
                   />
+
                   {errors?.password?.type === 'required' && (
                     <InputErrorMessage>
                       A senha é obrigatória.
                     </InputErrorMessage>
                   )}
+
+                  {errors?.password?.type === 'invalid-credentials' && (
+                    <InputErrorMessage>
+                      Insira uma senha válida.
+                    </InputErrorMessage>
+                  )}
                 </LoginInputContainer>
+
                 <LoginInputButton>
                   <CustomButton type='submit' startIcon={<MdLogin size={20} />}>
                     {TextInputsLogin.customButton}
