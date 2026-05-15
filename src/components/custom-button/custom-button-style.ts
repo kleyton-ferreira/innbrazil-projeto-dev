@@ -18,6 +18,7 @@ export const CustomButtonContainer = styled.button`
   font-weight: 600;
   transition: all 0.5s ease;
   font-size: 17px;
+ 
 
   &:hover {
     cursor: pointer;
