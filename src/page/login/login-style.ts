@@ -44,6 +44,7 @@ export const LoginContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   padding-top: 40px;
   transform:  translate(0%, 60%);
   background: rgba(255, 255, 255, 0.4);

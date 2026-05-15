@@ -19,7 +19,7 @@ import {
 } from './login-style'
 
 // ICONS
-import { FaGoogle } from 'react-icons/fa'
+import { BsGoogle } from 'react-icons/bs'
 import { MdLogin } from 'react-icons/md'
 import { useForm } from 'react-hook-form'
 
@@ -28,9 +28,11 @@ import validator from 'validator'
 import {
   AuthError,
   AuthErrorCodes,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  signInWithPopup
 } from 'firebase/auth'
-import { auth } from '../../config/firebase.config'
+import { auth, db, provider } from '../../config/firebase.config'
+import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
 
 interface LoginPageForm {
   email: string
@@ -53,6 +55,45 @@ const LoginPage = () => {
     window.open(`https://wa.me/${phone}?text=${message}`, '_blank')
   }
 
+  const handleSignInWithGooglePress = async () => {
+    try {
+      const userCredentials = await signInWithPopup(auth, provider)
+      console.log({ userCredentials })
+
+      // AQUI EU FAÇO UMA QUERY PRA PEGAR UM ID IGUAL A QUE TEM NO BANCO DE DADOS ! FAZER UMA QUERY QUER DIZER
+      // ME TRAGA ESSES DADOS ! ESSE CODIGO QUER DIZER  ( “Procura no banco se já existe um usuário com esse email”
+      // se nao tiver sera adicionado isso quer dizer com a conta do google )
+      const querySnapshot = await getDocs(
+        query(
+          collection(db, 'users'),
+          where('id', '==', userCredentials.user.uid)
+        )
+      )
+
+      const user = querySnapshot.docs[0]?.data()
+
+      // E ESSA CONDICIONAL AQUI QUER DIZER QUE SE NAO TIVER UM USUARIO LOGADO COM O GOOGLE AGENTE VAI ADICIONAR
+      // NO BANCO ( OS SPLITS PEGA O PRIMEIRO VALOR E O SEGUNDO VALOR ( 1ª nome => 2ª sobrenome ) )
+      if (!user) {
+        const firstName = userCredentials.user.displayName?.split(' ')[0]
+        const lastName = userCredentials.user.displayName?.split(' ')[1]
+
+        await addDoc(collection(db, 'users'), {
+          id: userCredentials.user.uid,
+          email: userCredentials.user.email,
+          firstName,
+          lastName,
+          providers: 'google'
+        })
+      }
+
+      // passar só o email, não o objeto inteiro
+      sendWhatsAppConfirmation(userCredentials.user.email!)
+    } catch (error) {
+      console.error({ error })
+    }
+  }
+
   const handleSubmitPress = async (data: LoginPageForm) => {
     try {
       const userCredential = await signInWithEmailAndPassword(
@@ -62,7 +103,6 @@ const LoginPage = () => {
       )
 
       console.log({ userCredential })
-
       sendWhatsAppConfirmation(data.email)
     } catch (error) {
       const _error = error as AuthError
@@ -88,14 +128,15 @@ const LoginPage = () => {
       <LoginBg>
         <LoginContainerFlex>
           <LoginContainer>
+            <LoginHeadLine>{TextInputsLogin.title}</LoginHeadLine>
+            <CustomButton
+              startIcon={<BsGoogle size={25} />}
+              onClick={handleSignInWithGooglePress}
+            >
+              {TextInputsLogin.buttonGoogle}
+            </CustomButton>
             <form onSubmit={handleSubmit(handleSubmitPress)}>
               <LoginContent>
-                <LoginHeadLine>{TextInputsLogin.title}</LoginHeadLine>
-
-                <CustomButton type='button' startIcon={<FaGoogle size={25} />}>
-                  {TextInputsLogin.buttonGoogle}
-                </CustomButton>
-
                 <LoginSubtitle>{TextInputsLogin.subTitle}</LoginSubtitle>
 
                 {/* INPUT - 1 */}
@@ -141,7 +182,7 @@ const LoginPage = () => {
 
                   {errors?.password?.type === 'invalid-credentials' && (
                     <InputErrorMessage>
-                      Insira uma senha válida.
+                      E-mail ou senha incorretos.
                     </InputErrorMessage>
                   )}
                 </LoginInputContainer>
