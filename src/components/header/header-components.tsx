@@ -19,6 +19,7 @@ const Header = () => {
             subTitle={TextsHeader.titleTwo}
             login={TextsHeader.loginButton}
             account={TextsHeader.accountButton}
+            signOutOut={TextsHeader.signOutButton}
           />
         </HeaderContent>
       </HeaderContainer>

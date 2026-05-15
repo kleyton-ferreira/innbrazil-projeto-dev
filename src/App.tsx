@@ -5,8 +5,14 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import HomePage from './page/home/home-components'
 import LoginPage from './page/login/login-page'
 import SignUpPage from './page/sign-up/sign-up-components'
+import { onAuthStateChanged } from 'firebase/auth'
+import { auth } from './config/firebase.config'
 
 const App: FunctionComponent = () => {
+  onAuthStateChanged(auth, (user) => {
+    console.log(user)
+  })
+
   return (
     <>
       <BrowserRouter>
