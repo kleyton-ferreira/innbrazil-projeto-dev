@@ -1,5 +1,6 @@
 import { FunctionComponent, useContext, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { userConverter } from './components/converters/firebase.converters'
 
 // PAGES
 import HomePage from './page/home/home-components'
@@ -25,10 +26,13 @@ const App: FunctionComponent = () => {
     const isSignIn = !isAuthentication && user
     if (isSignIn) {
       const querySnapshot = await getDocs(
-        query(collection(db, 'users'), where('id', '==', user.uid))
+        query(
+          collection(db, 'users').withConverter(userConverter),
+          where('id', '==', user.uid)
+        )
       )
       const userFromFirestore = querySnapshot.docs[0]?.data()
-      return loginUser(userFromFirestore as any)
+      return loginUser(userFromFirestore)
     }
 
     return setIsInitialing(false)
