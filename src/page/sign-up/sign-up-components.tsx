@@ -6,6 +6,7 @@ import Header from '../../components/header/header-components'
 import CustomInput from '../../components/custom-input/custom-input-components'
 import CustomButton from '../../components/custom-button/custom-button-components'
 import InputErrorMessage from '../../components/input-error-message/input-error-message'
+import Loading from '../../components/loading/loading.components'
 
 // UTILITZ
 import validator from 'validator'
@@ -33,7 +34,7 @@ import {
   AuthErrorCodes,
   createUserWithEmailAndPassword
 } from 'firebase/auth'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../../components/context/user-context'
 
 interface SignUpPageProps {
@@ -55,20 +56,15 @@ const SignUpPage = () => {
     setError
   } = useForm<SignUpPageProps>()
 
+  const [isLoading, setIsloading] = useState(false)
+
   const navigate = useNavigate()
-
-  const { isAuthentication } = useContext(UserContext)
-
-  useEffect(() => {
-    if (isAuthentication) {
-      navigate('/')
-    }
-  }, [isAuthentication])
 
   const watchPassword = watch('password')
 
   const handleSubmitPress = async (data: SignUpPageProps) => {
     try {
+      setIsloading(true)
       const userCredentials = await createUserWithEmailAndPassword(
         auth,
         data.email,
@@ -98,12 +94,23 @@ const SignUpPage = () => {
       if (_error.code === AuthErrorCodes.EMAIL_EXISTS) {
         return setError('email', { type: 'already-in-use' })
       }
+    } finally {
+      setIsloading(false)
     }
   }
+
+  const { isAuthentication } = useContext(UserContext)
+
+  useEffect(() => {
+    if (isAuthentication) {
+      navigate('/')
+    }
+  }, [isAuthentication])
 
   return (
     <>
       <Header />
+      {isLoading && <Loading />}
       <SignUpBg>
         <SignUpContainerFlex>
           <SignUpContainer>
