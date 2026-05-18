@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react'
+import { FunctionComponent, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { signOut } from 'firebase/auth'
 import { auth } from '../../config/firebase.config'
@@ -14,6 +14,9 @@ import {
 // COMPONENTS
 import Countdown from '../coutdown/ countdown.components'
 import Button from '../button/button-components'
+
+// UTILITZ
+import { UserContext } from '../context/user-context'
 
 interface HeaderItensProps {
   title: string
@@ -33,6 +36,8 @@ const HeaderItens: FunctionComponent<HeaderItensProps> = ({
   signOutOut
 }) => {
   const navigate = useNavigate()
+
+  const { isAuthentication } = useContext(UserContext)
 
   const handleLoginPage = () => {
     navigate('/login')
@@ -61,9 +66,16 @@ const HeaderItens: FunctionComponent<HeaderItensProps> = ({
           message='GARANTIR INGRESSO'
         />
         <HeaderItensAccount>
-          <button onClick={handleLoginPage}> {login} </button>
-          <button onClick={handleSignUpPage}> {account} </button>
-          <button onClick={() => signOut(auth)}> {signOutOut} </button>
+          {!isAuthentication && (
+            <>
+              <button onClick={handleLoginPage}> {login} </button>
+              <button onClick={handleSignUpPage}> {account} </button>
+            </>
+          )}
+
+          {isAuthentication && (
+            <button onClick={() => signOut(auth)}> {signOutOut} </button>
+          )}
         </HeaderItensAccount>
       </HeaderItensContainer>
     </>
