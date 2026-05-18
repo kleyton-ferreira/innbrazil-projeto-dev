@@ -2,6 +2,9 @@ import { FunctionComponent, useContext, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { userConverter } from './components/converters/firebase.converters'
 
+// COMPONENTS and SLODDING
+import Loading from './components/loading/loading.components'
+
 // PAGES
 import HomePage from './page/home/home-components'
 import LoginPage from './page/login/login-page'
@@ -12,7 +15,7 @@ import { UserContext } from './components/context/user-context'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 
 const App: FunctionComponent = () => {
-  const [isInitialing, setIsInitialing] = useState(false)
+  const [isInitialing, setIsInitialing] = useState(true)
 
   const { isAuthentication, logoutUser, loginUser } = useContext(UserContext)
 
@@ -32,13 +35,14 @@ const App: FunctionComponent = () => {
         )
       )
       const userFromFirestore = querySnapshot.docs[0]?.data()
-      return loginUser(userFromFirestore)
+      loginUser(userFromFirestore)
+      return setIsInitialing(false)
     }
 
     return setIsInitialing(false)
   })
 
-  if (isInitialing) return null
+  if (isInitialing) return <Loading />
 
   return (
     <>
