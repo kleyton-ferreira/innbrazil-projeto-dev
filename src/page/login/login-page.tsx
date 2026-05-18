@@ -3,6 +3,7 @@ import Header from '../../components/header/header-components'
 import CustomButton from '../../components/custom-button/custom-button-components'
 import CustomInput from '../../components/custom-input/custom-input-components'
 import InputErrorMessage from '../../components/input-error-message/input-error-message'
+import Loading from '../../components/loading/loading.components'
 
 // SCRIPT and TEXT
 import { TextInputsLogin } from '../../scripts/scriptsText'
@@ -33,7 +34,7 @@ import {
 } from 'firebase/auth'
 import { auth, db, provider } from '../../config/firebase.config'
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../../components/context/user-context'
 import { useNavigate } from 'react-router-dom'
 
@@ -50,9 +51,10 @@ const LoginPage = () => {
     formState: { errors }
   } = useForm<LoginPageForm>()
 
-  const navigate = useNavigate()
-
+  const [isLoading, setIsloading] = useState(false)
   const { isAuthentication } = useContext(UserContext)
+
+  const navigate = useNavigate()
 
   // COM ESSE USEEFFECT QUANDO EU FIZER O LOGIN ELE JA ME REDIRECIONA PARA PAGINA INICIAL USANDO O NAVIGATE!
   useEffect(() => {
@@ -71,6 +73,7 @@ const LoginPage = () => {
 
   const handleSignInWithGooglePress = async () => {
     try {
+      setIsloading(true)
       const userCredentials = await signInWithPopup(auth, provider)
       console.log({ userCredentials })
 
@@ -105,11 +108,14 @@ const LoginPage = () => {
       sendWhatsAppConfirmation(userCredentials.user.email!)
     } catch (error) {
       console.error({ error })
+    } finally {
+      setIsloading(false)
     }
   }
 
   const handleSubmitPress = async (data: LoginPageForm) => {
     try {
+      setIsloading(true)
       const userCredential = await signInWithEmailAndPassword(
         auth,
         data.email,
@@ -133,13 +139,17 @@ const LoginPage = () => {
       if (isInvalidCredential) {
         return setError('password', { type: 'invalid-credentials' })
       }
+    } finally {
+      setIsloading(false)
     }
   }
 
   return (
     <>
       <Header />
+
       <LoginBg>
+        {isLoading && <Loading />}
         <LoginContainerFlex>
           <LoginContainer>
             <LoginHeadLine>{TextInputsLogin.title}</LoginHeadLine>

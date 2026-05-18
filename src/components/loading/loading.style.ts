@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const LoadingContainer = styled.div`
   position: fixed;
+  z-index: 300300;
   top: 0;
   left: 0;
   height: 100vh;
