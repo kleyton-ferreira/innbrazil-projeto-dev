@@ -33,6 +33,9 @@ import {
 } from 'firebase/auth'
 import { auth, db, provider } from '../../config/firebase.config'
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
+import { useContext, useEffect } from 'react'
+import { UserContext } from '../../components/context/user-context'
+import { useNavigate } from 'react-router-dom'
 
 interface LoginPageForm {
   email: string
@@ -47,12 +50,23 @@ const LoginPage = () => {
     formState: { errors }
   } = useForm<LoginPageForm>()
 
+  const navigate = useNavigate()
+
+  const { isAuthentication } = useContext(UserContext)
+
+  // COM ESSE USEEFFECT QUANDO EU FIZER O LOGIN ELE JA ME REDIRECIONA PARA PAGINA INICIAL USANDO O NAVIGATE!
+  useEffect(() => {
+    if (isAuthentication) {
+      navigate('/')
+    }
+  }, [isAuthentication])
+
   const sendWhatsAppConfirmation = (email: string) => {
     const phone = '5582988322654'
     const message = encodeURIComponent(
       `Olá! Login realizado com sucesso.\nConfirmação de agendamento para o e-mail: ${email}`
     )
-    window.open(`https://wa.me/${phone}?text=${message}`, '_blank')
+    // window.open(`https://wa.me/${phone}?text=${message}`, '_blank')
   }
 
   const handleSignInWithGooglePress = async () => {

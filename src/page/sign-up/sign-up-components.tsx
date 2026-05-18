@@ -9,6 +9,8 @@ import InputErrorMessage from '../../components/input-error-message/input-error-
 
 // UTILITZ
 import validator from 'validator'
+import { auth, db } from '../../config/firebase.config'
+import { addDoc, collection } from 'firebase/firestore'
 
 // ICONS
 import { MdLogin } from 'react-icons/md'
@@ -31,8 +33,8 @@ import {
   AuthErrorCodes,
   createUserWithEmailAndPassword
 } from 'firebase/auth'
-import { auth, db } from '../../config/firebase.config'
-import { addDoc, collection } from 'firebase/firestore'
+import { useContext, useEffect } from 'react'
+import { UserContext } from '../../components/context/user-context'
 
 interface SignUpPageProps {
   firstName: string
@@ -45,8 +47,6 @@ interface SignUpPageProps {
 const WHATSAPP_NUMBER = '5582987940126'
 
 const SignUpPage = () => {
-  const navigate = useNavigate()
-
   const {
     register,
     handleSubmit,
@@ -54,6 +54,16 @@ const SignUpPage = () => {
     formState: { errors },
     setError
   } = useForm<SignUpPageProps>()
+
+  const navigate = useNavigate()
+
+  const { isAuthentication } = useContext(UserContext)
+
+  useEffect(() => {
+    if (isAuthentication) {
+      navigate('/')
+    }
+  }, [isAuthentication])
 
   const watchPassword = watch('password')
 
@@ -69,7 +79,8 @@ const SignUpPage = () => {
         id: userCredentials.user.uid,
         email: userCredentials.user.email,
         firstName: data.firstName,
-        lastName: data.lastName
+        lastName: data.lastName,
+        providers: 'firebase'
       })
 
       const message = encodeURIComponent(
