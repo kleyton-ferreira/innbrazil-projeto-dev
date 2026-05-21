@@ -22,132 +22,36 @@ import {
 // ICONS
 import { BsGoogle } from 'react-icons/bs'
 import { MdLogin } from 'react-icons/md'
-import { useForm } from 'react-hook-form'
 
 // UTILITY
 import validator from 'validator'
-import {
-  AuthError,
-  AuthErrorCodes,
-  signInWithEmailAndPassword,
-  signInWithPopup
-} from 'firebase/auth'
-import { auth, db, provider } from '../../config/firebase.config'
-import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
-import { useContext, useEffect, useState } from 'react'
-import { UserContext } from '../../components/context/user-context'
+import { useContext, useEffect } from 'react'
+import { LoginContext } from '../../components/context/login-context'
 import { useNavigate } from 'react-router-dom'
-
-interface LoginPageForm {
-  email: string
-  password: string
-}
 
 const LoginPage = () => {
   const {
-    register,
+    isAuthentication,
+    isLoadingAuth,
+    errors,
     handleSubmit,
-    setError,
-    formState: { errors }
-  } = useForm<LoginPageForm>()
-
-  const [isLoading, setIsloading] = useState(false)
-  const { isAuthentication } = useContext(UserContext)
+    handleSubmitPress,
+    handleSignInWithGooglePress,
+    isLoading,
+    register
+  } = useContext(LoginContext)
 
   const navigate = useNavigate()
 
-  // COM ESSE USEEFFECT QUANDO EU FIZER O LOGIN ELE JA ME REDIRECIONA PARA PAGINA INICIAL USANDO O NAVIGATE!
   useEffect(() => {
-    if (isAuthentication) {
+    if (!isLoadingAuth && isAuthentication) {
       navigate('/')
     }
-  }, [isAuthentication])
-
-  const sendWhatsAppConfirmation = (email: string) => {
-    const phone = '5582988322654'
-    const message = encodeURIComponent(
-      `Olá! Login realizado com sucesso.\nConfirmação de agendamento para o e-mail: ${email}`
-    )
-    // window.open(`https://wa.me/${phone}?text=${message}`, '_blank')
-  }
-
-  const handleSignInWithGooglePress = async () => {
-    try {
-      setIsloading(true)
-      const userCredentials = await signInWithPopup(auth, provider)
-      console.log({ userCredentials })
-
-      // AQUI EU FAÇO UMA QUERY PRA PEGAR UM ID IGUAL A QUE TEM NO BANCO DE DADOS ! FAZER UMA QUERY QUER DIZER
-      // ME TRAGA ESSES DADOS ! ESSE CODIGO QUER DIZER  ( “Procura no banco se já existe um usuário com esse email”
-      // se nao tiver sera adicionado isso quer dizer com a conta do google )
-      const querySnapshot = await getDocs(
-        query(
-          collection(db, 'users'),
-          where('id', '==', userCredentials.user.uid)
-        )
-      )
-
-      const user = querySnapshot.docs[0]?.data()
-
-      // E ESSA CONDICIONAL AQUI QUER DIZER QUE SE NAO TIVER UM USUARIO LOGADO COM O GOOGLE AGENTE VAI ADICIONAR
-      // NO BANCO ( OS SPLITS PEGA O PRIMEIRO VALOR E O SEGUNDO VALOR ( 1ª nome => 2ª sobrenome ) )
-      if (!user) {
-        const firstName = userCredentials.user.displayName?.split(' ')[0]
-        const lastName = userCredentials.user.displayName?.split(' ')[1]
-
-        await addDoc(collection(db, 'users'), {
-          id: userCredentials.user.uid,
-          email: userCredentials.user.email,
-          firstName,
-          lastName,
-          providers: 'google'
-        })
-      }
-
-      // passar só o email, não o objeto inteiro
-      sendWhatsAppConfirmation(userCredentials.user.email!)
-    } catch (error) {
-      console.error({ error })
-    } finally {
-      setIsloading(false)
-    }
-  }
-
-  const handleSubmitPress = async (data: LoginPageForm) => {
-    try {
-      setIsloading(true)
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        data.email,
-        data.password
-      )
-
-      console.log({ userCredential })
-      sendWhatsAppConfirmation(data.email)
-    } catch (error) {
-      const _error = error as AuthError
-
-      if (_error.code === AuthErrorCodes.INVALID_EMAIL) {
-        return setError('email', { type: 'invalid-email' })
-      }
-
-      const isInvalidCredential =
-        _error.code === AuthErrorCodes.INVALID_IDP_RESPONSE ||
-        _error.code === AuthErrorCodes.INVALID_PASSWORD ||
-        _error.code === 'auth/invalid-login-credentials'
-
-      if (isInvalidCredential) {
-        return setError('password', { type: 'invalid-credentials' })
-      }
-    } finally {
-      setIsloading(false)
-    }
-  }
+  }, [isAuthentication, isLoadingAuth, navigate])
 
   return (
     <>
       <Header />
-
       <LoginBg>
         {isLoading && <Loading />}
         <LoginContainerFlex>

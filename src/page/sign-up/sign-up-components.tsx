@@ -1,5 +1,15 @@
-import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import { useContext, useEffect } from 'react'
+import { UserContext } from '../../components/context/user-context'
+
+// UTILITZ
+import validator from 'validator'
+
+// ICONS
+import { MdLogin } from 'react-icons/md'
+
+// SCRIPTS and TEXTSIGNUP
+import { TextInputsSignUp } from '../../scripts/scriptsText'
 
 // COMPONENTS
 import Header from '../../components/header/header-components'
@@ -7,17 +17,6 @@ import CustomInput from '../../components/custom-input/custom-input-components'
 import CustomButton from '../../components/custom-button/custom-button-components'
 import InputErrorMessage from '../../components/input-error-message/input-error-message'
 import Loading from '../../components/loading/loading.components'
-
-// UTILITZ
-import validator from 'validator'
-import { auth, db } from '../../config/firebase.config'
-import { addDoc, collection } from 'firebase/firestore'
-
-// ICONS
-import { MdLogin } from 'react-icons/md'
-
-// SCRIPTS and TEXTSIGNUP
-import { TextInputsSignUp } from '../../scripts/scriptsText'
 
 // STYLES
 import {
@@ -29,77 +28,21 @@ import {
   SignUpInputContainer,
   SignUpInputButton
 } from './sign-up-styles'
-import {
-  AuthError,
-  AuthErrorCodes,
-  createUserWithEmailAndPassword
-} from 'firebase/auth'
-import { useContext, useEffect, useState } from 'react'
-import { UserContext } from '../../components/context/user-context'
-
-interface SignUpPageProps {
-  firstName: string
-  lastName: string
-  email: string
-  password: string
-  passwordConfirmation: string
-}
-
-const WHATSAPP_NUMBER = '5582987940126'
 
 const SignUpPage = () => {
   const {
+    isAuthentication,
+    handleSubmitPress,
+    isLoading,
     register,
     handleSubmit,
     watch,
-    formState: { errors },
-    setError
-  } = useForm<SignUpPageProps>()
-
-  const [isLoading, setIsloading] = useState(false)
+    errors
+  } = useContext(UserContext)
 
   const navigate = useNavigate()
 
   const watchPassword = watch('password')
-
-  const handleSubmitPress = async (data: SignUpPageProps) => {
-    try {
-      setIsloading(true)
-      const userCredentials = await createUserWithEmailAndPassword(
-        auth,
-        data.email,
-        data.password
-      )
-
-      await addDoc(collection(db, 'users'), {
-        id: userCredentials.user.uid,
-        email: userCredentials.user.email,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        providers: 'firebase'
-      })
-
-      const message = encodeURIComponent(
-        `Olá! Me cadastrei no site.\n\n` +
-          `👤 Nome: ${data.firstName} ${data.lastName}\n` +
-          `📧 Email: ${data.email}\n\n` +
-          `Gostaria de saber mais informações! ( Sobre as unhas em gel! )`
-      )
-
-      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank')
-
-      // navigate('/')
-    } catch (error) {
-      const _error = error as AuthError
-      if (_error.code === AuthErrorCodes.EMAIL_EXISTS) {
-        return setError('email', { type: 'already-in-use' })
-      }
-    } finally {
-      setIsloading(false)
-    }
-  }
-
-  const { isAuthentication } = useContext(UserContext)
 
   useEffect(() => {
     if (isAuthentication) {
