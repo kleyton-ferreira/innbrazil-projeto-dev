@@ -34,7 +34,7 @@ export const HeaderItensTitle = styled.div`
 export const HeaderItensAccount = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 32px;
   
   button {
    font-size: 18px;
@@ -53,5 +53,21 @@ export const HeaderItensAccount = styled.div`
     color: ${Colors.text.pink};
     font-weight: 400;
   }
+`
 
+export const HeaderIconCart = styled.div`
+ cursor: pointer;
+ display: flex;
+ gap: 1px;
+ 
+
+ span {
+   color: ${Colors.text.white};
+ }
+
+ p {
+   transform: translateY(-6px);
+   color: ${Colors.text.white};
+   font-size: 18px;
+ }
 `

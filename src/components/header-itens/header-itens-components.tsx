@@ -8,12 +8,16 @@ import {
   HeaderItensContainer,
   HeaderItensImg,
   HeaderItensTitle,
-  HeaderItensAccount
+  HeaderItensAccount,
+  HeaderIconCart
 } from './header-itens-styles'
 
 // COMPONENTS
 import Countdown from '../coutdown/ countdown.components'
 import Button from '../button/button-components'
+
+// ICONS
+import { BsCartCheck } from 'react-icons/bs'
 
 // UTILITZ
 import { UserContext } from '../context/user-context'
@@ -76,6 +80,12 @@ const HeaderItens: FunctionComponent<HeaderItensProps> = ({
           {isAuthentication && (
             <button onClick={() => signOut(auth)}> {signOutOut} </button>
           )}
+          <HeaderIconCart>
+            <span>
+              <BsCartCheck size={23} />
+            </span>
+            <p>5</p>
+          </HeaderIconCart>
         </HeaderItensAccount>
       </HeaderItensContainer>
     </>
