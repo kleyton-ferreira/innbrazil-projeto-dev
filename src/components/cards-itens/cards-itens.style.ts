@@ -3,7 +3,7 @@ import Colors from "../../theme/theme.colors";
 
 export const CardsItensContainer = styled.div` 
  margin-top: 206px;
- height: 440px;
+ height: 306px;
 `
 
 export const CardsItensContent = styled.div`

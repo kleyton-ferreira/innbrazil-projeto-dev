@@ -71,9 +71,11 @@ export const buttonVariants = {
   cards: css`
     background: ${Colors.text.white};
     color: ${Colors.text.pink};
+    border-radius: 10px;
+    transition: all 0.3s ease;
 
     &:hover {
-      /* background: #15803d; */
+      background: ${Colors.input.placeholder};
     }
   `,
 
@@ -104,9 +106,11 @@ export const ButtonIcon = styled.div`
  span {
   display: flex;
   align-items: center;
-  position: relative;
-  top: -1px;
-  left: -6px;
+  font-weight: bold;
+  position: absolute;
+  top: 6px;
+  right: 32px;
+  transform: rotate(316deg);
  }
 `
 
