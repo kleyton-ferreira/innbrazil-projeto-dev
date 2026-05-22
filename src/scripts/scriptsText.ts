@@ -67,3 +67,13 @@ export const TextPlans = {
     subDescription: "sem se perder no caminho."
 }
 
+export const ConfirmedText = {
+    title: 'E quem está no palco do INN Brazil 2026?',
+    subTitle: "Especialistas que constroem carreiras sólidas onde outros improvisam.",
+    description: "No INN Brazil, palestrante não é escolhido por seguidores.",
+    subDescription: "É escolhido por histórico, entrega e responsabilidade profissional.",
+    descriptionFooter: "Cada nome no palco existe para resolver problemas reais da vida clínica, da gestão e da carreira."
+}
+
+
+
