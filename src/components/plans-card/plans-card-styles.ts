@@ -29,4 +29,6 @@ export const PlansCardText = styled.div`
 export const PlansCardButton = styled.div`
  width: 45%;
  margin-top: 50px;
+ position: relative;
+ z-index: 1;
 `
