@@ -59,3 +59,11 @@ export const TextInputsSignUp = {
 }
 
 
+export const TextPlans = {
+    title: 'O que muda depois',
+    subTitle: "do",
+    subText: "INN Brazil?",
+    description: "Aqui você aprende como crescer",
+    subDescription: "sem se perder no caminho."
+}
+
