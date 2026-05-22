@@ -1,9 +1,25 @@
 import Bg from "../imgs/bg.png"
 import Logo from "../imgs/logo.png"
 import Modelo from "../imgs/image-modelo.png"
+import DoctorOne from "../imgs/img-05.png"
+import DoctorTwo from "../imgs/img-06.png"
+import DoctorThree from "../imgs/img-07.png"
+import DoctorFour from "../imgs/img-08.png"
+import DoctorFive from "../imgs/img-09.png"
+import DoctorSix from "../imgs/img-10.png"
+import DoctorSeven from "../imgs/img-11.png"
+import DoctorEight from "../imgs/img-16.png"
 
 export const Images = {
     bg: Bg,
     logo: Logo,
-    modelo: Modelo
+    modelo: Modelo,
+    DoctorOne: DoctorOne,
+    DoctorTwo: DoctorTwo,
+    DoctorThree: DoctorThree,
+    DoctorFour: DoctorFour,
+    DoctorFive: DoctorFive,
+    DoctorSix: DoctorSix,
+    DoctorSeven: DoctorSeven,
+    DoctorEight: DoctorEight,
 }   
