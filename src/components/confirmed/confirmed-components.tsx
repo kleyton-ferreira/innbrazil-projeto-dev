@@ -1,9 +1,5 @@
 // STYLES
-import {
-  ConfirmedContainer,
-  ConfirmedTitle,
-  ConfirmedContent
-} from './confirmed-style'
+import { ConfirmedContainer, ConfirmedTitle } from './confirmed-style'
 
 // COMPONENTS
 import ConfirmedCardsIntens from './confirmed-cards-intens'

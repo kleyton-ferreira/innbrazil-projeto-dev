@@ -63,7 +63,7 @@ export const ConfirmedCardsItens = styled.div`
    width: 2px;
    height: 20px;
    background: ${Colors.text.pinkLight};
-   transition: height 0.4s ease;
+   transition: all 0.8s cubic-bezier(.43, 2, .55, .27);
  }
 
  &:hover p::after {

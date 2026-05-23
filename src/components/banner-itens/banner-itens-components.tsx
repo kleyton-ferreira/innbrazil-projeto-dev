@@ -19,7 +19,6 @@ import Button from '../button/button-components'
 // SCRIPTS AND TEXT and IMAGES
 import { TextsBanner } from '../../scripts/scriptsText'
 import { Images } from '../../scripts/scriptsImg'
-import { Link } from 'react-router-dom'
 
 const BannerItens: FunctionComponent = () => {
   return (
