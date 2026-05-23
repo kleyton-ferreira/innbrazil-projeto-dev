@@ -1,6 +1,17 @@
-import { Images } from '../../scripts/scriptsImg'
+// COMPONENTS
+import Button from '../button/button-components'
 import ConfirmeCards from '../confirme-cards/confirme-cards-components'
-import { ConfirmedContent } from './confirmed-style'
+
+// STYLES
+import {
+  ConfirmedContent,
+  ConfirmedTitleFooter,
+  ConfirmedButton
+} from './confirmed-style'
+
+// SCRIPTS and TEXT
+import { Images } from '../../scripts/scriptsImg'
+import { ConfirmedText, TextsBanner } from '../../scripts/scriptsText'
 
 const ConfirmedCardsIntens = () => {
   return (
@@ -52,6 +63,20 @@ const ConfirmedCardsIntens = () => {
           description='Coaching'
         />
       </ConfirmedContent>
+      <ConfirmedTitleFooter>
+        <h2>
+          {ConfirmedText.text} <strong> {ConfirmedText.subText} </strong>
+          <span>
+            {ConfirmedText.descText}
+            <strong> {ConfirmedText.subDescText} </strong>
+            {ConfirmedText.descTitle}
+            <strong> {ConfirmedText.subDescTitle} </strong>
+          </span>
+        </h2>
+      </ConfirmedTitleFooter>
+      <ConfirmedButton>
+        <Button message={TextsBanner.button} variant='secondary' />
+      </ConfirmedButton>
     </>
   )
 }

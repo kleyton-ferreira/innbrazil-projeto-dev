@@ -46,3 +46,29 @@ export const ConfirmedTitle = styled.div`
     display: block;
   }
 `
+
+export const ConfirmedTitleFooter = styled.div`
+  margin-top: 54px;
+  margin-bottom: 54px;
+
+  h2 {
+    font-size: 30px;
+    color: ${Colors.text.gray};
+    font-weight: 500;
+  }
+
+  strong {
+    font-size: 40px;
+    color: ${Colors.text.pink};
+  }
+
+  span {
+    display: block;
+    line-height: 30px;
+  }
+`
+
+export const ConfirmedButton = styled.div`
+  width: 20%;
+  margin: auto;
+`
