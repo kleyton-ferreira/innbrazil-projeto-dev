@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 // COMPONENTS
 import HeaderItens from '../header-itens/header-itens-components'
@@ -9,19 +9,11 @@ import { HeaderContainer, HeaderContent } from './header-style'
 // SCRIPT and IMAGES and TEXT
 import { Images } from '../../scripts/scriptsImg'
 import { TextsHeader } from '../../scripts/scriptsText'
+import { AllFunctionContext } from '../context/allFunctions-context'
 
 const Header = () => {
   // FUNÇAO DE SCROLAR A BARRA
-  const [scrolled, setScrolled] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  const { scrolled } = useContext(AllFunctionContext)
 
   return (
     <>
