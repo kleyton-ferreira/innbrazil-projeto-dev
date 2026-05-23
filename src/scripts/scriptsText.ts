@@ -72,7 +72,14 @@ export const ConfirmedText = {
     subTitle: "Especialistas que constroem carreiras sólidas onde outros improvisam.",
     description: "No INN Brazil, palestrante não é escolhido por seguidores.",
     subDescription: "É escolhido por histórico, entrega e responsabilidade profissional.",
-    descriptionFooter: "Cada nome no palco existe para resolver problemas reais da vida clínica, da gestão e da carreira."
+    descriptionFooter: "Cada nome no palco existe para resolver problemas reais da vida clínica, da gestão e da carreira.",
+    text: "Não é sobre quantidade de",
+    subText: "palestrantes.",
+    descText: "É sobre",
+    subDescText: "qualidade",
+    descTitle: "do conteúdo e impacto real na",
+    subDescTitle: "sua carreira",
+
 }
 
 
