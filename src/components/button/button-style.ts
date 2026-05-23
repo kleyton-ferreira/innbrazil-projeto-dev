@@ -50,11 +50,13 @@ export const buttonVariants = {
     background: ${Colors.text.pink};
     color: ${Colors.text.white};
     transition: all 0.3s ease;
+    display: inline-block;
+    
     
 
     &:hover {
-      background: ${Colors.text.white};
-      color: ${Colors.text.pink};
+      background: ${Colors.text.gray};
+      color: ${Colors.text.white};
     }
   `,
 
@@ -114,11 +116,12 @@ export const ButtonIcon = styled.div`
  }
 `
 
-export const ButtonNav = styled.div<ButtonProps>`
+export const ButtonNav = styled.button<ButtonProps>`
   position: relative;
   z-index: 10003;
   padding: 12px 40px;
   border-radius: 30px;
+  border: none;
   text-decoration: none;
   font-weight: 400;
   overflow: hidden;
