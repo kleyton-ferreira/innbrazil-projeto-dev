@@ -1,0 +1,9 @@
+import styled from "styled-components";
+
+export const CardBoxContainer = styled.div`
+ display: flex;
+ justify-content: center;
+ gap: 20px;
+
+ margin-top: 120px;
+`

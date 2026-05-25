@@ -5,6 +5,7 @@ import Points from '../../components/points/points-components'
 import Cards from '../../components/cards/cards-components'
 import Plans from '../../components/plans/plans-components'
 import Confirmed from '../../components/confirmed/confirmed-components'
+import CardBox from '../../components/cards-box/cards-box-components'
 
 const HomePage = () => {
   return (
@@ -17,6 +18,7 @@ const HomePage = () => {
       <Cards />
       <Plans />
       <Confirmed />
+      <CardBox />
     </>
   )
 }
