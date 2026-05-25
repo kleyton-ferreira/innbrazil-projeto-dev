@@ -13,6 +13,8 @@ import IconOne from "../imgs/icon-1.png"
 import IconTwo from "../imgs/icon-2.png"
 import IconThree from "../imgs/icon-3.png"
 import IconFour from "../imgs/icon-4.png"
+import IconPlay from "../imgs/btn-play.png"
+import ModeloPlay from "../imgs/image-modelo.png"
 
 
 
@@ -32,4 +34,6 @@ export const Images = {
     IconTwo: IconTwo,
     IconThree: IconThree,
     IconFour: IconFour,
+    IconPlay: IconPlay,
+    ModeloPlay: ModeloPlay
 }   
