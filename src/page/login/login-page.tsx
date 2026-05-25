@@ -38,7 +38,8 @@ const LoginPage = () => {
     handleSubmitPress,
     handleSignInWithGooglePress,
     isLoading,
-    register
+    register,
+    reset
   } = useContext(LoginContext)
 
   const navigate = useNavigate()
@@ -46,6 +47,10 @@ const LoginPage = () => {
   useEffect(() => {
     if (!isLoadingAuth && isAuthentication) {
       navigate('/')
+    }
+
+    if (!isLoadingAuth && !isAuthentication) {
+      reset()
     }
   }, [isAuthentication, isLoadingAuth, navigate])
 

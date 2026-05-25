@@ -37,7 +37,8 @@ const SignUpPage = () => {
     register,
     handleSubmit,
     watch,
-    errors
+    errors,
+    reset
   } = useContext(UserContext)
 
   const navigate = useNavigate()
@@ -47,6 +48,9 @@ const SignUpPage = () => {
   useEffect(() => {
     if (isAuthentication) {
       navigate('/')
+    }
+    if (!isAuthentication) {
+      reset()
     }
   }, [isAuthentication])
 
