@@ -9,7 +9,12 @@ import {
   AuthErrorCodes,
   createUserWithEmailAndPassword
 } from 'firebase/auth'
-import { useForm, UseFormRegister, FieldErrors } from 'react-hook-form'
+import {
+  useForm,
+  UseFormRegister,
+  FieldErrors,
+  UseFormReset
+} from 'react-hook-form'
 
 export interface SignUpFormData {
   firstName: string
@@ -31,6 +36,7 @@ interface IUserContext {
   errors: FieldErrors<SignUpFormData>
   handleSubmit: ReturnType<typeof useForm<SignUpFormData>>['handleSubmit']
   watch: ReturnType<typeof useForm<SignUpFormData>>['watch']
+  reset: UseFormReset<SignUpFormData>
 }
 
 export const UserContext = createContext<IUserContext>({
@@ -47,7 +53,8 @@ export const UserContext = createContext<IUserContext>({
   handleSubmit: {} as ReturnType<
     typeof useForm<SignUpFormData>
   >['handleSubmit'],
-  watch: {} as ReturnType<typeof useForm<SignUpFormData>>['watch']
+  watch: {} as ReturnType<typeof useForm<SignUpFormData>>['watch'],
+  reset: () => {}
 })
 
 interface UserContextProviderProps {
@@ -62,7 +69,8 @@ const UserContextProvider: FunctionComponent<UserContextProviderProps> = ({
     register,
     handleSubmit,
     watch,
-    formState: { errors }
+    formState: { errors },
+    reset
   } = useForm<SignUpFormData>()
 
   const [currentUser, setCurrentUser] = useState<User | null>(null)
@@ -71,7 +79,10 @@ const UserContextProvider: FunctionComponent<UserContextProviderProps> = ({
   const isAuthentication = currentUser !== null
 
   const loginUser = (user: User) => setCurrentUser(user)
-  const logoutUser = () => setCurrentUser(null)
+  const logoutUser = () => {
+    setCurrentUser(null)
+    reset()
+  }
 
   const WHATSAPP_NUMBER = '5582987940126'
 
@@ -118,6 +129,7 @@ const UserContextProvider: FunctionComponent<UserContextProviderProps> = ({
         isAuthentication,
         isLoading,
         errors,
+        reset,
         loginUser,
         logoutUser,
         handleSubmitPress,

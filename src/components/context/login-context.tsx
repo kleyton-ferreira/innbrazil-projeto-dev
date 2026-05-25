@@ -1,5 +1,10 @@
 import { FunctionComponent, createContext, useEffect, useState } from 'react'
-import { FieldErrors, UseFormRegister, useForm } from 'react-hook-form'
+import {
+  FieldErrors,
+  UseFormRegister,
+  UseFormReset,
+  useForm
+} from 'react-hook-form'
 import { auth, db, provider } from '../../config/firebase.config'
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
 import User from '../../types/user-types'
@@ -8,7 +13,8 @@ import {
   AuthErrorCodes,
   onAuthStateChanged,
   signInWithEmailAndPassword,
-  signInWithPopup
+  signInWithPopup,
+  signOut
 } from 'firebase/auth'
 
 export interface LoginPageForm {
@@ -29,6 +35,7 @@ interface LOginContext {
   register: UseFormRegister<LoginPageForm>
   errors: FieldErrors<LoginPageForm>
   handleSubmit: ReturnType<typeof useForm<LoginPageForm>>['handleSubmit']
+  reset: UseFormReset<LoginPageForm>
 }
 
 export const LoginContext = createContext<LOginContext>({
@@ -44,7 +51,8 @@ export const LoginContext = createContext<LOginContext>({
   // USEFORM
   register: {} as UseFormRegister<LoginPageForm>,
   errors: {},
-  handleSubmit: {} as ReturnType<typeof useForm<LoginPageForm>>['handleSubmit']
+  handleSubmit: {} as ReturnType<typeof useForm<LoginPageForm>>['handleSubmit'],
+  reset: () => {}
 })
 
 interface LoginContextProviderProps {
@@ -58,6 +66,7 @@ const LoginContextProvider: FunctionComponent<LoginContextProviderProps> = ({
     setError,
     register,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm<LoginPageForm>()
 
@@ -68,8 +77,13 @@ const LoginContextProvider: FunctionComponent<LoginContextProviderProps> = ({
 
   const isAuthentication = currentUser !== null
 
+  const logoutUser = async () => {
+    await signOut(auth)
+    setCurrentUser(null)
+    reset({ email: '', password: '' })
+  }
+
   const loginUser = (user: User) => setCurrentUser(user)
-  const logoutUser = () => setCurrentUser(null)
 
   // ESSE USE EFFECT ME DIRECIONA PARA PAGINA INICIAL!
   useEffect(() => {
@@ -85,21 +99,14 @@ const LoginContextProvider: FunctionComponent<LoginContextProviderProps> = ({
               ? 'google'
               : 'firebase'
         })
+      } else {
+        setCurrentUser(null)
       }
       setIsLoadingAuth(false)
     })
 
     return () => unsubscribe()
   }, [])
-
-  //   DIRECIONA PARA O WATS!
-  const sendWhatsAppConfirmation = (email: string) => {
-    const phone = '5582988322654'
-    const message = encodeURIComponent(
-      `Olá! Login realizado com sucesso.\nConfirmação de agendamento para o e-mail: ${email}`
-    )
-    // window.open(`https://wa.me/${phone}?text=${message}`, '_blank')
-  }
 
   // FUNÇAO LOGIN COM A CONTA EMAIL AN SENHA!
   const handleSubmitPress = async (data: LoginPageForm) => {
@@ -171,6 +178,15 @@ const LoginContextProvider: FunctionComponent<LoginContextProviderProps> = ({
     }
   }
 
+  //   DIRECIONA PARA O WATS!
+  const sendWhatsAppConfirmation = (email: string) => {
+    const phone = '5582988322654'
+    const message = encodeURIComponent(
+      `Olá! Login realizado com sucesso.\nConfirmação de agendamento para o e-mail: ${email}`
+    )
+    // window.open(`https://wa.me/${phone}?text=${message}`, '_blank')
+  }
+
   return (
     <LoginContext.Provider
       value={{
@@ -179,6 +195,7 @@ const LoginContextProvider: FunctionComponent<LoginContextProviderProps> = ({
         isLoading,
         isLoadingAuth,
         errors,
+        reset,
         loginUser,
         handleSubmitPress,
         handleSubmit,
