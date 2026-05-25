@@ -79,7 +79,22 @@ export const ConfirmedText = {
     subDescText: "qualidade",
     descTitle: "do conteúdo e impacto real na",
     subDescTitle: "sua carreira",
+}
 
+export const CardBoxText = {
+    titleOne: "48 Bilhões",
+    titleTwo: "+3,1 Milhões",
+    titleThree: "2º Maior Mercado",
+    titleFour: "+14% ao Ano",
+
+    descOne: 'Movimentados anualmente pelo',
+    subDescOne: 'mercado de estética no Brasil.',
+    descTwo: 'De procedimentos estéticos',
+    subDescTwo: 'realizados por ano.',
+    descThree: 'De estética do mundo, atrás',
+    subDescThree: 'apenas dos Estados Unidos.',
+    descFour: 'Crescimento projetado',
+    subDescFour: 'do setor até 2023..'
 }
 
 
