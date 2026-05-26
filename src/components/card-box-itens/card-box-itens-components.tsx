@@ -16,7 +16,7 @@ const CardBoxItens: FunctionComponent<CardBoxItensProps> = ({
   description,
   subDescription,
   img,
-  altText = 'image'
+  altText = 'icon'
 }) => {
   return (
     <>
