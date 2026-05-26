@@ -14,7 +14,7 @@ import IconTwo from "../imgs/icon-2.png"
 import IconThree from "../imgs/icon-3.png"
 import IconFour from "../imgs/icon-4.png"
 import IconPlay from "../imgs/btn-play.png"
-import ModeloPlay from "../imgs/image-modelo.png"
+import ModeloPlay from "../imgs/img-modelo-two.png"
 
 
 

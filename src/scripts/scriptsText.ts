@@ -98,4 +98,35 @@ export const CardBoxText = {
 }
 
 
+export const ForWhowAndText = {
+    titleOne: "Por que isso só",
+    titleTwo: "funciona presencialmente?",
+
+    one: 'Isso só funciona ',
+    OneStrong: "presencialmente",
+    oneEnd: "porque a troca real não acontece em vídeo.",
+
+    two: 'É no',
+    twoStrong: "contato direto",
+    twoQuite: "que surgem",
+    twoQuiteStrong: "conexões",
+    twoEnd: "genuínas, leituras de contexto, linguagem",
+
+    four: "corporal e conversas que vão além do óbvio.",
+    fourStrong: "Networking",
+    fourEnd: "não nasce no chat,",
+
+    five: "nasce no encontro, no intervalo, no olhar e na troca espontânea.",
+
+    sixStrong: "Decisões",
+    six: " importantes exigem",
+    sixQuiteStrong: "ambiente, profundidade e presença,",
+    sixFind: "fatores",
+    sixEnd: "que nenhuma tela consegue reproduzir por completo.",
+
+    btnFor: "Quer entender mais? ",
+    btnForStrong: " Fale Conosco",
+}
+
+
 
