@@ -6,7 +6,7 @@ type ButtonVariant = 'primary' | 'secondary' | 'wats' | 'cards' | 'btnBanner'
 type TextVariant = 'textxl' | 'text2x1'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  message: string
+  message?: string
   variant?: ButtonVariant
   variantText?: TextVariant
   icon?: React.ReactNode
@@ -24,9 +24,9 @@ const Button: FunctionComponent<ButtonProps> = ({
   target,
   scrollTo,
   onClick,
+  children,
   ...rest
 }) => {
-  // CONDICIONAL PARA ME NAVEGAR ENTRE COMPONENTS
   const handleClick = (eventButton: MouseEvent<HTMLButtonElement>) => {
     if (scrollTo) {
       eventButton.preventDefault()
@@ -43,13 +43,12 @@ const Button: FunctionComponent<ButtonProps> = ({
       variantText={variantText}
     >
       <ButtonIcon>{icon && <span>{icon}</span>}</ButtonIcon>
-      <p>
-        {message} <strong></strong>
-      </p>
+
+      {message && <p>{message}</p>}
+      {children}
     </ButtonNav>
   )
 
-  // CONDICIONAL PARA ME DIRECIONA AOS LINKS DAS PAGINAS!
   if (to) {
     return (
       <Link to={to} target={target} style={{ textDecoration: 'none' }}>

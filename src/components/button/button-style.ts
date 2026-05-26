@@ -64,9 +64,12 @@ export const buttonVariants = {
     background: ${Colors.background.backgroundWats};
     color: ${Colors.text.gray};
     transition: all 0.3s ease;
+    padding: 20px ;
+    width: 64%;
 
     &:hover {
-      /* background: #b91c1c; */
+      box-shadow: 0px 0px 40px 10px rgba(0, 255, 70, 0.5);
+      transform: scale(1.05);
     }
   `,
 
@@ -135,6 +138,40 @@ export const ButtonNav = styled.button<ButtonProps>`
     position: relative;
     z-index: 3;
     font-weight: 600;
+  }
+
+  h4 {
+    font-weight: 400;
+    color: ${Colors.text.buttonwaths};; 
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 18px;
+    margin-left: 10px;
+  }
+
+i {
+  position: relative;
+  top: 0;
+  right: -60px;
+  z-index: 2;
+  color: ${Colors.background.backgroundWatsIcon};
+  border: 2px solid ${Colors.background.backgroundWatsIcon};
+}
+
+i::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -30px;
+  right: -80px;
+  background: ${Colors.background.backgroundIconWats};
+  width: 130px;
+  height: 83px;
+}
+
+  strong {
+    font-weight: bold;
   }
 
    ${({ variant = "primary" }) => buttonVariants[variant as ButtonVariant]}
